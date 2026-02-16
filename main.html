@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Catch The Box</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+  <!-- Start Screen -->
+    <div id="startScreen"> 
+      <h1>Catch The Box</h1>
+
+      <h2>Select Difficulty</h2>
+      <button class="level" data-speed="1500">Easy</button>
+      <button class="level" data-speed="1000">Medium</button>
+      <button class="level" data-speed="600">Hard</button>
+
+      <br /><br />
+      <button id="startBtn">Start Game</button>
+    </div>
+
+    <!-- Game Area  -->
+
+    <div id="gameArea" style="display: none">
+      <h2>Score: <span id="score">0</span></h2>
+      <h3>Time: <span id="time">30</span></h3>
+      <h3>High Score: <span id="highScore">0</span></h3>
+
+      <div class="playground">
+        <div id="box"></div>
+      </div>
+
+      <br />
+      <button id="pauseBtn">Pause</button>
+    </div>
+
+    <!-- Game over SCREEN -->
+
+    <div id="gameOverScreen" style="display: none">
+      <h2>💀 Game Over</h2>
+      <p id="finalScore"></p>
+      <button onclick="location.reload()">Play Again</button>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
