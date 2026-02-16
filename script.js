@@ -61,8 +61,9 @@ function moveBox() {
   multiplier = 1;
 }
 
-box.addEventListener("click", () => {
+box.addEventListener("click", (e) => {
   if (timeLeft > 0 && !isPaused) {
+
     clickSound.play();
 
     combo++;
@@ -74,45 +75,49 @@ box.addEventListener("click", () => {
     score += multiplier;
     scoreDisplay.textContent = score;
 
+    // Get click position inside playground
+    const rect = document.querySelector(".playground").getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    showFloatingScore(multiplier, x, y);
+
     moveBox();
   }
 });
 
-startBtn.addEventListener(
-  "click",
 
-  function showScreen() {
-    clearInterval(gameInterval);
-    clearInterval(moveInterval);
+startBtn.addEventListener("click", function showScreen() {
+  clearInterval(gameInterval);
+  clearInterval(moveInterval);
 
-    document.getElementById("startScreen").style.display = "none";
-    document.getElementById("gameArea").style.display = "block";
+  document.getElementById("startScreen").style.display = "none";
+  document.getElementById("gameArea").style.display = "block";
 
-    score = 0;
-    timeLeft = 30;
-    combo = 0;
-    multiplier = 1;
-    isPaused = false;
+  score = 0;
+  timeLeft = 30;
+  combo = 0;
+  multiplier = 1;
+  isPaused = false;
 
-    scoreDisplay.textContent = score;
-    timeDisplay.textContent = timeLeft;
+  scoreDisplay.textContent = score;
+  timeDisplay.textContent = timeLeft;
 
-    moveBox();
+  moveBox();
 
-    moveInterval = setInterval(moveBox, speed);
+  moveInterval = setInterval(moveBox, speed);
 
-    gameInterval = setInterval(() => {
-      if (!isPaused) {
-        timeLeft--;
-        timeDisplay.textContent = timeLeft;
+  gameInterval = setInterval(() => {
+    if (!isPaused) {
+      timeLeft--;
+      timeDisplay.textContent = timeLeft;
 
-        if (timeLeft === 0) {
-          endGame();
-        }
+      if (timeLeft === 0) {
+        endGame();
       }
-    }, 1000);
-  },
-);
+    }
+  }, 1000);
+});
 
 // Pause || Resume
 
@@ -136,3 +141,19 @@ function endGame() {
     highScoreDisplay.textContent = highScore;
   }
 }
+
+function showFloatingScore(points, x, y) {
+  const floating = document.createElement("div");
+  floating.textContent = "+" + points;
+  floating.classList.add("floating-score");
+
+  floating.style.left = x + "px";
+  floating.style.top = y + "px";
+
+  document.querySelector(".playground").appendChild(floating);
+
+  setTimeout(() => {
+    floating.remove();
+  }, 1000);
+}
+

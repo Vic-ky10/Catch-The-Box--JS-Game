@@ -68,11 +68,12 @@ button:hover {
   margin: 10px 0;
 }
 
+/* Floating Score Effect */
 .floating-score {
   position: absolute;
   font-weight: bold;
   font-size: 18px;
-  color: yellow;
+  color: rgb(0, 255, 81);
   pointer-events: none;
   animation: floatUp 0.8s ease-out forwards;
 }
@@ -81,5 +82,9 @@ button:hover {
   0% {
     opacity: 1;
     transform: translateY(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-40px);
   }
 }
